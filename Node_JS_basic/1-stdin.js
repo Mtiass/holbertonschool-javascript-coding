@@ -1,4 +1,5 @@
 // Program named 1-stdin.js that will be executed through command line.
+/* eslint-disable */
 const readline = require('readline');
 
 const rl = readline.createInterface({

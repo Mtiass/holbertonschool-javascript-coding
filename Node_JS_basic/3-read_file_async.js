@@ -14,7 +14,7 @@ const countStudents = (filePath) => {
 
       const dataArray = data.trim().split('\n').map((line) => line.split(','));
 
-      const validDataArray = dataArray.filter(line => line.length > 1);
+      const validDataArray = dataArray.filter((line) => line.length > 1);
 
       const numberOfStudents = validDataArray.length - 1;
       console.log(`Number of students: ${numberOfStudents}`);

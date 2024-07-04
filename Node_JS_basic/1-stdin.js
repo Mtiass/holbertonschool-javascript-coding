@@ -9,9 +9,9 @@ const rl = readline.createInterface({
 console.log('Welcome to Holberton School, what is your name?');
 
 rl.on('line', (input) => {
-  console.log(`Your name is: ${input}\n`);
+  console.log('Your name is: ${input}\r');
 });
 
 rl.on('close', () => {
-  console.log('This important software is now closing');
+  console.log('This important software is now closing\r');
 });

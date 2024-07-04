@@ -10,7 +10,7 @@ console.log('Welcome to Holberton School, what is your name?');
 
 rl.on('line', (input) => {
   const triminput = input.trim();
-  console.log(`Your name is: ${triminput}\r`);
+  console.log(`Your name is: ${triminput}\r\n`);
 });
 
 rl.on('close', () => {

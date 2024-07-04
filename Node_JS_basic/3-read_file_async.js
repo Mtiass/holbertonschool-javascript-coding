@@ -33,7 +33,7 @@ const countStudents = (filePath) => {
       delete fields.field;
 
       for (const fieldName in fields) {
-        if (fields.hasOwnProperty(fieldName)) {
+        if (Object.prototype.hasOwnProperty.call(fields, fieldName)) {
           console.log(`Number of students in ${fieldName}: ${fields[fieldName].length}. List: ${fields[fieldName].join(', ')}`);
         }
       }

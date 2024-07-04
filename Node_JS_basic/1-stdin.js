@@ -1,5 +1,4 @@
 // Program named 1-stdin.js that will be executed through command line.
-/* eslint-disable */
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -10,7 +9,7 @@ const rl = readline.createInterface({
 console.log('Welcome to Holberton School, what is your name?');
 
 rl.on('line', (input) => {
-  console.log(`Your name is: ${input}`);
+  console.log(`Your name is: ${input}\r`);
 });
 
 rl.on('close', () => {

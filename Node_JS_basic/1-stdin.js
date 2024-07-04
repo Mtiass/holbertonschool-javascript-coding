@@ -9,10 +9,9 @@ const rl = readline.createInterface({
 console.log('Welcome to Holberton School, what is your name?\n');
 
 rl.on('line', (input) => {
-  const normalizedInput = input.replace(/\r/g, '');
-  console.log(`Your name is: ${normalizedInput}`);
+  console.log(`Your name is: ${Input}`);
 });
 
 rl.on('close', () => {
-  console.log('This important software is now closing');
+  console.log('This important software is now closing\n');
 });

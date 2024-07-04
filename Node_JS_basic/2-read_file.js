@@ -2,11 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const countStudents = (filePath) => {
-  filePath = path.normalize(filePath);
 
   try {
     const data = fs.readFileSync(filePath, 'utf-8');
-    
+ 
     const dataArray = data.trim().split('\n').map((line) => line.split(','));
 
     const numberOfStudents = dataArray.length - 1;

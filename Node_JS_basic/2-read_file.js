@@ -4,7 +4,7 @@ const path = require('path');
 const countStudents = (filePath) => {
   /* eslint-disable no-param-reassign */
   filePath = path.normalize(filePath);
- 
+
   try {
     const data = fs.readFileSync(filePath, 'utf-8');
 

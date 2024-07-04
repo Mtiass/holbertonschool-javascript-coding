@@ -1,16 +1,16 @@
-// Program named 1-stdin.js that will be executed through command line.
-const readline = require('readline');
+// Program named 1-stdin.js that will be executed through command line
+t readline = require('readline');
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-console.log('Welcome to Holberton School, what is your name?');
+console.log('Welcome to Holberton School, what is your name?\n');
 
 rl.on('line', (input) => {
-  const triminput = input.trim();
-  console.log(`Your name is: ${triminput}\r\n`);
+  const normalizedInput = input.replace(/\r/g, '');
+  console.log(`Your name is: ${normalizedInput}`);
 });
 
 rl.on('close', () => {

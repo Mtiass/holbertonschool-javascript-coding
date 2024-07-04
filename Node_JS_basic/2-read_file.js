@@ -4,10 +4,10 @@ const path = require('path');
 const countStudents = (filePath) => {
   /* eslint-disable no-param-reassign */
   filePath = path.normalize(filePath);
-  
+ 
   try {
     const data = fs.readFileSync(filePath, 'utf-8');
- 
+
     const dataArray = data.trim().split('\n').map((line) => line.split(','));
 
     const numberOfStudents = dataArray.length - 1;

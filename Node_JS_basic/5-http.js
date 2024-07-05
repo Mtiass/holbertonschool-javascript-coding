@@ -1,57 +1,33 @@
-t http = require('http');
-const fs = require('fs').promises;
-const url = require('url');
-const csvParse = require('csv-parse');
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const { countStudents } = require('./3-read_file_async');
 
-async function countStudents(path) {
-  try {
-    const data = await fs.readFile(path, 'utf8');
-    const records = await csvParse(data, { columns: true, skip_empty_lines: true });
+const filePath = process.argv[2];
 
-    let totalStudents = 0;
-    let fields = {};
-
-    records.forEach(record => {
-      if (record.firstName && record.field) {
-        totalStudents++;
-        if (!fields[record.field]) {
-          fields[record.field] = [];
-        }
-        fields[record.field].push(record.firstName);
-      }
-    });
-
-    let results = [`Number of students: ${totalStudents}`];
-    Object.keys(fields).forEach(field => {
-      results.push(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
-    });
-
-    return results;
-  } catch (error) {
-    throw new Error('Cannot load the database');
-  }
-}
-
-const app = http.createServer(async (req, res) => {
-  const reqUrl = url.parse(req.url).pathname;
+const app = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
 
-  if (reqUrl === '/') {
+  if (req.url === '/') {
     res.end('Hello Holberton School!');
-  } else if (reqUrl === '/students') {
-    const path = process.argv[2];
-    res.write('This is the list of our students\n');
-    try {
-      const data = await countStudents(path);
-      res.end(data.join('\n'));
-    } catch (err) {
-      res.end(err.message);
-    }
+  } else if (req.url === '/students') {
+    countStudents(filePath)
+      .then(() => {
+      })
+      .catch((error) => {
+        console.error(error.message);
+        res.statusCode = 500;
+        res.end('Internal Server Error');
+      });
+  } else {
+    res.statusCode = 404;
+    res.end('404 Not Found');
   }
 });
 
-app.listen(1245, () => {
-  console.log('Server is running and listening on port 1245');
+const PORT = 1245;
+app.listen(PORT, () => {
+  console.log(`Server is running and listening on http://localhost:${PORT}`);
 });
 
 module.exports = app;

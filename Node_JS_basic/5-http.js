@@ -11,13 +11,14 @@ const app = http.createServer((req, res) => {
   } else if (req.url === '/students') {
     countStudents(databasePath)
       .then((data) => {
-        res.write('This is the list of our students\n');
+        let response = `This is the list of our students\n`;
         data.forEach((line) => {
-          res.write(`${line}\n`);
-        });
-        res.end();
+          response += `${line}\n`;
+});
+        res.end(response);
       })
       .catch((error) => {
+        res.statusCode = 500;
         res.end(`This is the list of our students\n${error.message}`);
       });
   } else {

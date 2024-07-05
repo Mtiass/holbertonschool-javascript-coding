@@ -1,5 +1,5 @@
 const http = require('http');
-const { countStudents } = require('./3-read_file_async');
+const countStudents = require('./3-read_file_async');
 
 const databasePath = process.argv[2];
 
@@ -26,10 +26,6 @@ const app = http.createServer((req, res) => {
   }
 });
 
-const PORT = 1245;
-const HOSTNAME = 'localhost';
-app.listen(PORT, HOSTNAME, () => {
-  console.log(`Server is running and listening on http://${HOSTNAME}:${PORT}`);
-});
+app.listen(1245, '127.0.0.1');
 
 module.exports = app;

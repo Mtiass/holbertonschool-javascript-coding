@@ -11,14 +11,9 @@ const app = http.createServer((req, res) => {
   } else if (req.url === '/students') {
     countStudents(databasePath)
       .then((data) => {
-        let response = `This is the list of our students\n`;
-        data.forEach((line) => {
-          response += `${line}\n`;
-});
-        res.end(response);
+        res.end(`This is the list of our students\n${data.join('\n')}`);
       })
       .catch((error) => {
-        res.statusCode = 500;
         res.end(`This is the list of our students\n${error.message}`);
       });
   } else {
@@ -27,6 +22,11 @@ const app = http.createServer((req, res) => {
   }
 });
 
-app.listen(1245, '127.0.0.1');
+const PORT = 1245;
+const HOSTNAME = 'localhost';
+
+app.listen(PORT, HOSTNAME, () => {
+  console.log(`Server is running and listening on http://${HOSTNAME}:${PORT}`);
+});
 
 module.exports = app;

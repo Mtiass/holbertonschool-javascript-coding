@@ -1,7 +1,7 @@
 #!/usr/bin/node
 const request = require('request');
 
-const apiUrl = 'https://jsonplaceholder.typicode.com/todos';
+const apiUrl = process.argv[2];
 
 request(apiUrl, (error, response, body) => {
   if (error) {
@@ -20,17 +20,17 @@ request(apiUrl, (error, response, body) => {
 
     todos.forEach((todo) => {
       if (todo.completed) {
-        if (completedTasks[todo.userId]) {
-          completedTasks[todo.userId]++;
-        } else {
-          completedTasks[todo.userId] = 1;
+        if (todo.userId === 1 || todo.userId === 2) {
+          if (completedTasks[todo.userId]) {
+            completedTasks[todo.userId]++;
+          } else {
+            completedTasks[todo.userId] = 1;
+          }
         }
       }
     });
 
-    Object.keys(completedTasks).forEach((userId) => {
-      console.log(`User ${userId} completed ${completedTasks[userId]} tasks`);
-    });
+    console.log(`{ '${Object.keys(completedTasks).join("': ")}' }`);
 
   } catch (parseError) {
     console.error('Error parsing JSON:', parseError.message);

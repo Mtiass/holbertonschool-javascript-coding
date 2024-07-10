@@ -4,7 +4,7 @@ const request = require('request');
 
 const url = process.argv[2];
 
-function getStatus(url) {
+function getStatus (url) {
   request.get(url, (error, response) => {
     if (error) {
       console.error(error);

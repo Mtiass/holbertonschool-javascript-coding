@@ -1,11 +1,11 @@
 #!/usr/bin/node
 const request = require('request');
 
-const apiUrl = process.argv[2];
+const apiUrl = process.argv[2] || 'https://jsonplaceholder.typicode.com/todos';
 
-request(apiUrl, (error, response, body) => {
-  if (error) {
-    console.error('Error fetching data:', error);
+request(apiUrl, { json: true }, (err, response, body) => {
+  if (err) {
+    console.error('Error fetching data:', err);
     return;
   }
 
@@ -14,25 +14,19 @@ request(apiUrl, (error, response, body) => {
     return;
   }
 
-  try {
-    const todos = JSON.parse(body);
-    const completedTasks = {};
+  const completedTasks = {};
 
-    todos.forEach((todo) => {
-      if (todo.completed) {
-        if (todo.userId === 1 || todo.userId === 2) {
-          if (completedTasks[todo.userId]) {
-            completedTasks[todo.userId]++;
-          } else {
-            completedTasks[todo.userId] = 1;
-          }
-        }
+  body.forEach(task => {
+    if (task.completed) {
+      if (!completedTasks[task.userId]) {
+        completedTasks[task.userId] = 0;
       }
-    });
+      completedTasks[task.userId]++;
+    }
+  });
 
-    console.log(`{ '${Object.keys(completedTasks).join("': ")}' }`);
-
-  } catch (parseError) {
-    console.error('Error parsing JSON:', parseError.message);
-  }
+  Object.keys(completedTasks).forEach(userId => {
+    console.log(`User ${userId} completed ${completedTasks[userId]} tasks`);
+  });
 });
+

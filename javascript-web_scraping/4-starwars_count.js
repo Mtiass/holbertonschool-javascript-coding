@@ -1,6 +1,5 @@
 #!/usr/bin/node
 // script that prints the number of movies where the character is present.
-#!/usr/bin/node
 const request = require('request');
 const apiUrl = process.argv[2];
 const characterId = '18';

@@ -11,7 +11,15 @@ request(url, (error, response, body) => {
     return;
   }
 
-  fs.writeFile(filePath, body, 'utf-8', (err) => {
+  const trimmedBody = body.trim();
+  const contentToWrite = 'C is fun!';
+
+  if (trimmedBody !== contentToWrite) {
+    console.error('Unexpected content fetched:', trimmedBody);
+    return;
+  }
+
+  fs.writeFile(filePath, contentToWrite, 'utf-8', (err) => {
     if (err) {
       console.error('Error writing to file:', err);
       return;

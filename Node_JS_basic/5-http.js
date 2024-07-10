@@ -9,13 +9,17 @@ const app = http.createServer((req, res) => {
   if (req.url === '/') {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
-    countStudents(databasePath)
-      .then((data) => {
-        res.end(`This is the list of our students\n${data.join('\n')}`);
-      })
-      .catch((error) => {
-        res.end(`This is the list of our students\n${error.message}`);
-      });
+  countStudents(databasePath)
+    .then((data) => {
+      console.log("Data to send:", data);
+      const formattedData = `This is the list of our students\n${data.join('\n')}`;
+      console.log("Formatted data to send:", formattedData);
+      res.end(formattedData);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      res.end(`This is the list of our students\n${error.message}`);
+    });
   } else {
     res.statusCode = 404;
     res.end('404 Not Found');
